@@ -110,13 +110,25 @@
     function prev() { current = (current - 1 + gallery.length) % gallery.length; show(); }
     function next() { current = (current + 1) % gallery.length; show(); }
 
-    // Attach click handlers to all lightbox triggers
+    // Attach click and keyboard handlers to all lightbox triggers
     function initTriggers() {
       document.querySelectorAll('[data-lightbox]').forEach((el, i) => {
+        // Make image triggers reachable and operable by keyboard
+        if (!el.hasAttribute('tabindex')) el.setAttribute('tabindex', '0');
+        if (el.tagName === 'IMG') el.setAttribute('role', 'button');
+
         el.addEventListener('click', (e) => {
           e.preventDefault();
           if (!gallery.length) buildGallery();
           open(i, el);
+        });
+
+        el.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            if (!gallery.length) buildGallery();
+            open(i, el);
+          }
         });
       });
     }
