@@ -1,3 +1,4 @@
 # Welcome to Jekyll!
 # Has to exist to allow github pages to deploy
 remote_theme             : "mmistakes/minimal-mistakes"
+url                      : "https://bronheulog.wales"
